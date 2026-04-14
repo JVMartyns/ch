@@ -2,7 +2,7 @@
 
 [![Documentation badge](https://img.shields.io/badge/Documentation-ff69b4)](https://hexdocs.pm/ch)
 [![Hex.pm badge](https://img.shields.io/badge/Package%20on%20hex.pm-informational)](https://hex.pm/packages/ch)
-[![Coveralls](https://img.shields.io/coverallsCoverage/github/plausible/ch?branch=master&style=flat&label=Test%20coverage%20is%20currently%20at%20wow%20so%20high)](https://coveralls.io/github/plausible/ch?branch=master)
+[![Coveralls](https://img.shields.io/coverallsCoverage/github/plausible/ch?branch=master&style=flat&label=Coverage)](https://coveralls.io/github/plausible/ch?branch=master)
 
 
 Minimal HTTP [ClickHouse](https://clickhouse.com) client for Elixir.
