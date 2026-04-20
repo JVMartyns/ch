@@ -1461,13 +1461,11 @@ defmodule Ch.RowBinary do
       {:datetime, timezone} ->
         case bin do
           <<s::32-little, bin::bytes>> ->
-            dt = DateTime.from_unix!(s)
-
             dt =
               case timezone do
-                nil -> DateTime.to_naive(dt)
-                "UTC" -> dt
-                _ -> DateTime.shift_zone!(dt, timezone)
+                nil -> NaiveDateTime.add(@epoch_naive_datetime, s)
+                "UTC" -> DateTime.from_unix!(s)
+                _ -> s |> DateTime.from_unix!() |> DateTime.shift_zone!(timezone)
               end
 
             decode_rows(types_rest, bin, [dt | row], rows, types)
@@ -1540,13 +1538,20 @@ defmodule Ch.RowBinary do
       {:datetime64, time_unit, timezone} ->
         case bin do
           <<s::64-little-signed, bin::bytes>> ->
-            dt = DateTime.from_unix!(s, time_unit)
-
             dt =
               case timezone do
-                nil -> DateTime.to_naive(dt)
-                "UTC" -> dt
-                _ -> DateTime.shift_zone!(dt, timezone)
+                nil ->
+                  @epoch_naive_datetime
+                  |> NaiveDateTime.add(s, time_unit)
+                  |> truncate(time_unit)
+
+                "UTC" ->
+                  DateTime.from_unix!(s, time_unit)
+
+                _ ->
+                  s
+                  |> DateTime.from_unix!(time_unit)
+                  |> DateTime.shift_zone!(timezone)
               end
 
             decode_rows(types_rest, bin, [dt | row], rows, types)
@@ -1614,11 +1619,16 @@ defmodule Ch.RowBinary do
     end
   end
 
-  @compile inline: [time_unit: 1]
+  @compile inline: [time_unit: 1, time_prec: 1]
   for precision <- 0..9 do
     time_unit = round(:math.pow(10, precision))
 
     defp time_unit(unquote(precision)), do: unquote(time_unit)
+    defp time_prec(unquote(time_unit)), do: unquote(precision)
+  end
+
+  defp truncate(%{microsecond: {micros, _prec}} = date, time_unit) do
+    %{date | microsecond: {micros, time_prec(time_unit)}}
   end
 
   @compile inline: [time_after_midnight: 2]
