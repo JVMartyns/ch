@@ -1616,8 +1616,7 @@ defmodule Ch.RowBinary do
 
   @compile inline: [time_unit: 1]
   for precision <- 0..9 do
-    time_unit = round(:math.pow(10, precision))
-
+    time_unit = Integer.pow(10, precision)
     defp time_unit(unquote(precision)), do: unquote(time_unit)
   end
 
