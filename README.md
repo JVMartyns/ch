@@ -315,4 +315,4 @@ Ch.query!(pid, "INSERT INTO ch_datetimes(name, datetime) FORMAT RowBinary", rows
 
 ## [Benchmarks](./bench)
 
-See nightly [CI runs](https://github.com/plausible/ch/actions/workflows/bench.yml) for latest results.
+See [GitHub Pages](https://plausible.github.io/ch/dev/bench/) for latest results.
