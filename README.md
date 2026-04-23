@@ -4,8 +4,7 @@
 [![Hex.pm badge](https://img.shields.io/badge/Package%20on%20hex.pm-informational)](https://hex.pm/packages/ch)
 [![Coveralls](https://img.shields.io/coverallsCoverage/github/plausible/ch?branch=master&style=flat&label=Coverage)](https://coveralls.io/github/plausible/ch?branch=master)
 
-
-Minimal HTTP [ClickHouse](https://clickhouse.com) client for Elixir.
+HTTP [ClickHouse](https://clickhouse.com) client for Elixir.
 
 Used in [Ecto ClickHouse adapter.](https://github.com/plausible/ecto_ch)
 
@@ -14,7 +13,6 @@ Used in [Ecto ClickHouse adapter.](https://github.com/plausible/ecto_ch)
 - RowBinary
 - Native query parameters
 - Per query settings
-- Minimal API
 
 Your ideas are welcome [here.](https://github.com/plausible/ch/issues/82)
 
